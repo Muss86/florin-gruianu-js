@@ -8,7 +8,7 @@ form.addEventListener('submit', function (event) {
 
   result = Math.PI * Math.pow(radius, 2);
 
-  element.Result.innerText = result;
+  inputResult.innerText = result;
 
   event.preventDefault();
 });

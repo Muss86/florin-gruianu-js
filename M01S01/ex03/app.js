@@ -12,7 +12,7 @@ form.addEventListener('submit', function (event) {
 
   result = length * width * height;
 
-  element.Result.innerText = result;
+  inputResult.innerText = result;
 
   event.preventDefault();
 });

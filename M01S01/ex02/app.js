@@ -10,7 +10,7 @@ form.addEventListener('submit', function (event) {
 
   result = length * width;
 
-  element.Result.innerText = result;
+  inputResult.innerText = result;
 
   event.preventDefault();
 });
