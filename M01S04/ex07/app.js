@@ -70,3 +70,36 @@ for (i = 0; i < friendsLength; i++) {
     `${friend.surname} ${friend.name} are mai mult de ${charCount} caractere.`,
   );
 }
+
+console.warn(
+  `Folosind o bucla for afiseaza proprietatea name a tuturor obiectelor din arrayul friends.`,
+);
+
+for (i = 0; i < friends.length; i++) {
+  console.log(friends[i].name);
+}
+
+console.warn(`Afiseaza numele complet al tuturor prietenilor.`);
+
+for (i = 0; i < friends.length; i++) {
+  console.log(`${friends[i].name} ${friends[i].surname}`);
+}
+
+console.warn(
+  `Folosind keywordul break, afiseaza numele complet al prietenilor dar opeste bucla la primul
+  surname care are numarul de caractere mai mare sau egal decat 9 si afiseaz-l intr-o propozitie
+  de forma “M-am oprit la Nume Prenume.”.`,
+);
+
+var charCount = 9;
+var message = '';
+
+for (i = 0; i < friends.length; i++) {
+  var friendSurnameLength = friends[i].surname.length;
+  message = `${friends[i].name} ${friends[i].surname}`;
+
+  if (friendSurnameLength >= charCount) {
+    break;
+  }
+}
+console.log(`M-am oprit la ${message}.`);
