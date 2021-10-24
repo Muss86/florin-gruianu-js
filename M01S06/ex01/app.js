@@ -59,4 +59,11 @@ console.log(`Masina era marca ${car.make} si se deplasa cu ${car.speed} km/h.`);
 console.warn(
   `Decelereaza masina cu 5 unitati apoi afisaza propozitia: "Viteza noua este speed km/h".`,
 );
-console.log(`Viteza noua este ${(car.speed -= 5)} km/h.`);
+// console.log(`Viteza noua este ${(car.speed -= 5)} km/h.`);
+const autoDecelerate = function () {
+  for (i = 5; i > 0; i--) {
+    car.speed -= 1;
+  }
+  console.log(car.speed);
+};
+console.log(autoDecelerate());
