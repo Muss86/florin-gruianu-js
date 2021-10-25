@@ -1,6 +1,7 @@
-const paragraphLog = (message) => {
+const paragraphLog = function () {
   let logContainer = document.querySelector('.logs');
   const messageElement = document.createElement('p');
+  let result = '';
 
   if (logContainer === null) {
     logContainer = document.createElement('div');
@@ -8,13 +9,14 @@ const paragraphLog = (message) => {
     document.body.append(logContainer);
   }
 
-  messageElement.innerText = message;
+  for (i = 0; i < arguments.length; i++) {
+    result += arguments[i] + ' ';
+  }
+
+  messageElement.innerText = result;
 
   logContainer.append(messageElement);
 };
 
 console.log = paragraphLog;
 console.log('Apar in DOM, nu in consola');
-
-console.domLog = paragraphLog;
-console.domLog('MAI apar in DOM?'); // asa trebuia rezolvat? Asa inteleg din cerinta si cred ca inteleg gresit

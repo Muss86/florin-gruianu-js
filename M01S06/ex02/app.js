@@ -7,6 +7,9 @@ let browserName = 'N/A';
 if (userAgentString.includes('chrome')) {
   message = 'Navighezi folosind Chrome';
   browserName = 'Chrome';
+} else if (userAgentString.includes('firefox')) {
+  message = ' Navighezi folosind Firefox';
+  browserName = 'Firefox';
 }
 
 paragraphElement.innerText = message;
