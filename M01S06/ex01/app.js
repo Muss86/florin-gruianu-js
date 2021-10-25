@@ -49,6 +49,11 @@ const car = {
       return 'Iti trebuie un imprumut la banca pentru o masina mai puternica';
     }
   },
+  autoDecelerate: function () {
+    for (i = 5; i > 0; i--) {
+      this.speed -= 1;
+    }
+  },
 };
 
 console.warn(
@@ -60,10 +65,10 @@ console.warn(
   `Decelereaza masina cu 5 unitati apoi afisaza propozitia: "Viteza noua este speed km/h".`,
 );
 // console.log(`Viteza noua este ${(car.speed -= 5)} km/h.`);
-const autoDecelerate = function () {
-  for (i = 5; i > 0; i--) {
-    car.speed -= 1;
-  }
-  console.log(car.speed);
-};
-console.log(autoDecelerate());
+// const autoDecelerate = function () {
+//   for (i = 5; i > 0; i--) {
+//     car.speed -= 1;
+//   }
+//   console.log(car.speed);
+// };
+// console.log(autoDecelerate());
