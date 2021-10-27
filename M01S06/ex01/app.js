@@ -43,11 +43,15 @@ const car = {
     this.speed = 0;
   },
   setSpeed: function (yourSetSpeed) {
-    if (yourSetSpeed >= -50 && yourSetSpeed <= 160) {
-      this.speed = yourSetSpeed;
-    } else {
-      return 'Iti trebuie un imprumut la banca pentru o masina mai puternica';
+    if (yourSetSpeed < this.topReverseSpeed) {
+      this.speed = this.topReverseSpeed;
+      return;
     }
+    if (yourSetSpeed > this.topSpeed) {
+      this.speed = this.topSpeed;
+      return;
+    }
+    this.speed = yourSetSpeed;
   },
   autoDecelerate: function () {
     for (i = 5; i > 0; i--) {
