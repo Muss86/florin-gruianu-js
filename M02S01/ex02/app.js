@@ -65,3 +65,15 @@ bike.decelerate();
 bike.decelerate();
 //organism -> mammal -> primates, canines, felines
 //         -> fish
+
+class Tricycle extends Vehicle {
+  constructor(make, color, speed, topSpeed, topReverseSpeed) {
+    super(make, color, 3, speed, topSpeed, topReverseSpeed);
+  }
+}
+
+const trike = new Tricycle('Tryke', 'red', 2, 9, -2);
+trike.setSpeed(0);
+trike.decelerate();
+trike.decelerate();
+trike.decelerate();
