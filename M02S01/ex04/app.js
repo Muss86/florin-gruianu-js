@@ -2,10 +2,18 @@ class Car {
   areLightsOn = false;
   intervalId = null;
 
-  constructor(xPos = 0, yPos = 0, color = 'black') {
+  constructor(
+    xPos = 0,
+    yPos = 0,
+    color = 'black',
+    colorWheelTire = 'black',
+    colorWheelCap = 'white',
+  ) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.color = color;
+    this.colorWheelTire = colorWheelTire;
+    this.colorWheelCap = colorWheelCap;
   }
 
   moveTo(x = 0, y = 0) {
@@ -20,15 +28,46 @@ class Car {
     this.wheelBack.style.backgroundColor = color;
   }
 
+  colorateWheelTire() {
+    this.wheelFront.style.backgroundColor = this.colorWheelTire;
+    this.wheelBack.style.backgroundColor = this.colorWheelTire;
+  }
+
+  colorateWheelCap() {
+    this.wheelCapFront.style.backgroundColor = this.colorWheelCap;
+    this.wheelCapBack.style.backgroundColor = this.colorWheelCap;
+  }
+
+  colorateWheels() {
+    this.colorateWheelTire();
+    this.colorateWheelCap();
+  }
+
   turnLightsOn() {
     this.areLightsOn = true;
     this.lightFront.classList.add('light--on');
-    this.lightBack.classList.add('light--on');
+    // this.lightBack.classList.add('light--on');
   }
 
   turnLightsOff() {
     this.areLightsOn = false;
     this.lightFront.classList.remove('light--on');
+    // this.lightBack.classList.remove('light--on');
+  }
+
+  flashLigths() {
+    this.turnLightsOn();
+
+    setTimeout(() => {
+      this.turnLightsOff();
+    }, 2000);
+  }
+
+  engageBreak() {
+    this.lightBack.classList.add('light--on');
+  }
+
+  disengageBreak() {
     this.lightBack.classList.remove('light--on');
   }
 
@@ -38,8 +77,10 @@ class Car {
       this.intervalId = setInterval(() => {
         if (this.areLightsOn === true) {
           this.turnLightsOff();
+          this.disengageBreak();
         } else {
           this.turnLightsOn();
+          this.engageBreak();
         }
       }, 800);
     } else {
@@ -117,7 +158,7 @@ class Car {
   }
 }
 
-const audi = new Car(250, 400, 'black');
+const audi = new Car(250, 400, 'black', 'blue', 'red');
 audi.render();
 
 // no-op
