@@ -10,10 +10,9 @@ form.addEventListener('submit', function (event) {
   let lives = 5;
 
   for (i = 5; i > 0; i--) {
-    if (userGuess == myNumber) {
+    if (userGuess === myNumber) {
       result = 'Ai castigat';
 
-      break;
       // console.log('Ai castigat');
     } else if (userGuess > myNumber) {
       result = 'Numarul e prea mare';
@@ -27,7 +26,7 @@ form.addEventListener('submit', function (event) {
       // console.log('Numarul este prea mic');
     } else {
       result = 'Ai pierdut';
-      break;
+
       // console.log('Ai pierdut');
     }
   }

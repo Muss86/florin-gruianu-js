@@ -24,3 +24,41 @@ const paragraphLog = function () {
 
 console.log = paragraphLog;
 console.log('Apar in DOM, nu in consola');
+
+// -------------------Guess Game----------------------------
+
+const userNumber = document.getElementById('userNumber');
+const checkMessage = document.getElementById('checkMessage');
+const triesUser = document.getElementById('triesUser');
+const form = document.querySelector('form');
+const myGuess = Math.floor(Math.random() * 50 + 1);
+
+form.addEventListener('submit', function (event) {
+  let userGuess = Number(userNumber.value);
+  let message = '';
+  let tries = 5;
+
+  while (myGuess !== userGuess) {
+    tries++;
+    if (userGuess === myGuess) {
+      message = 'Ai castigat';
+
+      // console.log('Ai castigat');
+    } else if (userGuess > myGuess) {
+      message = 'Numarul e prea mare';
+
+      // console.log('Numarul e prea mare');
+    } else if (userGuess < myGuess) {
+      message = 'Numarul este prea mic';
+
+      // console.log('Numarul este prea mic');
+    } else {
+      message = 'Ai pierdut';
+
+      // console.log('Ai pierdut');
+    }
+  }
+  checkMessage.innerText = message;
+  triesUser.innerText = tries;
+  event.preventDefault();
+});

@@ -15,6 +15,35 @@
 
 <body>
 
+  <form id="form">
+    <fieldset>
+      <legend>Ghiceste Numarul de la 1 la 50</legend>
+
+      <label for="userNumber">Introdu aici numarul la care te gandesti:</label>
+      <input
+        type="text"
+        name="userNumber"
+        id="userNumber"
+        placeholder="Ghiceste"
+        class="user-input"
+      >
+
+      <button
+        type="submit"
+        title="Noroc"
+      >Noroc</button>
+
+
+      <p>
+        Incercari: <span id="triesUser"></span>
+        <br> <br>
+        Verificare: <span id="checkMessage"></span>
+      </p>
+
+
+    </fieldset>
+  </form>
+
 
   <script src="app.js"></script>
   <div
