@@ -30,35 +30,28 @@ console.log('Apar in DOM, nu in consola');
 const userNumber = document.getElementById('userNumber');
 const checkMessage = document.getElementById('checkMessage');
 const triesUser = document.getElementById('triesUser');
-const form = document.querySelector('form');
+const form = document.getElementById('form');
 const myGuess = Math.floor(Math.random() * 50 + 1);
 
 form.addEventListener('submit', function (event) {
   let userGuess = Number(userNumber.value);
   let message = '';
-  let tries = 5;
+  // let tries = 0;
+  if (userGuess === myGuess) {
+    message = `Ai castigat! Numarul era ${myGuess}.`;
 
-  while (myGuess !== userGuess) {
-    tries++;
-    if (userGuess === myGuess) {
-      message = 'Ai castigat';
+    // console.log('Ai castigat');
+  } else if (userGuess > myGuess) {
+    message = 'Numarul e prea mare';
 
-      // console.log('Ai castigat');
-    } else if (userGuess > myGuess) {
-      message = 'Numarul e prea mare';
+    // console.log('Numarul e prea mare');
+  } else if (userGuess < myGuess) {
+    message = 'Numarul este prea mic';
 
-      // console.log('Numarul e prea mare');
-    } else if (userGuess < myGuess) {
-      message = 'Numarul este prea mic';
-
-      // console.log('Numarul este prea mic');
-    } else {
-      message = 'Ai pierdut';
-
-      // console.log('Ai pierdut');
-    }
+    // console.log('Numarul este prea mic');
   }
+
   checkMessage.innerText = message;
-  triesUser.innerText = tries;
+  // triesUser.innerText = tries;
   event.preventDefault();
 });
