@@ -44,3 +44,41 @@ const $navigation = $('<div>', {
 const $container = $('.container');
 
 $container.after($navigation);
+
+const $navLink = $('<a>', {
+  class: 'nav-link',
+  text: 'Primul Link',
+  href: '',
+  title: 'Primul Link',
+}).appendTo($navigation);
+
+const $beforeNavLink = $('<h2>', {
+  text: 'Navigatie',
+});
+
+$navLink.before($beforeNavLink);
+
+const $supOne = $('<sup>', {
+  text: '1',
+});
+
+$navLink.prepend($supOne);
+
+const $beforeContainer = $('<h1>', {
+  text: 'Invat jQuery',
+});
+
+$container.before($beforeContainer);
+
+const $documentation = $('<p>', {
+  text: 'Documentatia jQuery poate fi gasita ',
+});
+
+$p.before($documentation);
+
+$('<a>', {
+  text: 'aici',
+  href: 'https://learn.jquery.com/',
+  target: 'blank',
+  title: 'jQuery',
+}).appendTo($documentation);

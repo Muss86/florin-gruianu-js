@@ -28,19 +28,19 @@ class Car {
     this.wheelBack.style.backgroundColor = color;
   }
 
-  colorateWheelTire() {
+  paintWheelTire() {
     this.wheelFront.style.backgroundColor = this.colorWheelTire;
     this.wheelBack.style.backgroundColor = this.colorWheelTire;
   }
 
-  colorateWheelCap() {
+  paintWheelCap() {
     this.wheelCapFront.style.backgroundColor = this.colorWheelCap;
     this.wheelCapBack.style.backgroundColor = this.colorWheelCap;
   }
 
-  colorateWheels() {
-    this.colorateWheelTire();
-    this.colorateWheelCap();
+  paintWheels() {
+    this.paintWheelTire();
+    this.paintWheelCap();
   }
 
   turnLightsOn() {

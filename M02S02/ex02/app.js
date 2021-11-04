@@ -12,12 +12,6 @@ $(function () {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const person = {};
-    // const formIterator = formData.entries();
-
-    // while (!formIterator.next().done) {
-    //   const [fieldName, fieldValue] = formIterator.next().value;
-
-    //   person[fieldName] = fieldValue;
 
     for (const fieldData of formData.entries()) {
       const [fieldName, fieldValue] = fieldData;
