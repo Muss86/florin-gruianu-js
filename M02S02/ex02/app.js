@@ -1,10 +1,8 @@
-// DOM COntent Loaded:
+// DOM Content Loaded:
 // document.addEventListener('DOMContentLoaded')
 
 // bad and deprecated:
-// $(document).ready(function() {
-
-// })
+// $(document).ready(function () {});
 
 // note the overloading
 $(function () {
@@ -13,6 +11,8 @@ $(function () {
     const formData = new FormData(event.currentTarget);
     const person = {
       skills: [],
+      hasPets: false,
+      pets: [],
     };
 
     for (const fieldData of formData.entries()) {
@@ -20,6 +20,32 @@ $(function () {
 
       if (fieldName.startsWith('skill-')) {
         person.skills.push(fieldValue);
+
+        continue;
+      }
+
+      if (fieldName === 'hasPets') {
+        person.hasPets = true;
+
+        continue;
+      }
+
+      if (fieldName.startsWith('pet-')) {
+        // destructuring
+        // Twix|Dog|12 -> ['Twix', 'Dog', '12']
+        const [petName, petSpecies, petAge] = fieldValue.split('|');
+
+        person.pets.push({
+          petName,
+          petSpecies,
+          petAge: Number(petAge),
+        });
+
+        continue;
+      }
+
+      if (fieldName === 'age') {
+        person[fieldName] = Number(fieldValue);
 
         continue;
       }
@@ -33,17 +59,18 @@ $(function () {
     $personContainer.insertAfter($personForm);
 
     resetForm($personForm);
-    $('#personForm.skillsUl').remove();
+    $('#personForm .skillsUl').remove();
   });
 
   const $skillInput = $('#skillInput');
-  // nextSiblingElement - DOM
+  // nextSiblingElement -> DOM
   $skillInput.next().on('click', function () {
-    // nu avem nevoie de event in cazul type='button'
+    // nu avem nevoie de event in cazul type="button"
     const $skillButton = $(this);
     const $skillInput = $skillButton.prev();
-    const skillName = $skillInput.val().trim(); //.value <- proprietate in DOM
+    const skillName = $skillInput.val().trim(); // .value <- proprietate in DOM
 
+    //  '      a '.trim => 'a'
     if (skillName.length <= 0) {
       return;
     }
@@ -52,16 +79,16 @@ $(function () {
     const $parentFieldset = $skillButton.parent();
     let $skillsUl = $parentFieldset.find('.skillsUl');
 
-    // runs olny once
+    // runs only once
     if ($skillsUl.length === 0) {
-      // create skillsUl
+      // create skills ul
       $skillsUl = $('<ul>', {
         class: 'skillsUl',
       });
 
       // jquery event delegation
       $skillsUl.on('click', '.deleteSkillButton', function () {
-        //this -> deleteSkillButton
+        // this -> deleteSkillButton
         $(this).parent().remove();
       });
 
@@ -87,13 +114,14 @@ $(function () {
         $cancelEditButton.siblings('.editSkillButton').show();
       });
 
-      $skillsUl.on('click', '.saveEditButton', function () {
+      $skillsUl.on('click', '.saveSkillButton', function () {
         const $saveSkillButton = $(this).hide();
 
         const newValue = $saveSkillButton
           .siblings('input[name^="skill-"]')
           .attr('type', 'hidden')
           .val();
+
         $saveSkillButton.siblings('.skillName').text(newValue).show();
         $saveSkillButton.siblings('.saveSkillButton').hide();
         $saveSkillButton.siblings('.deleteSkillButton').show();
@@ -113,28 +141,28 @@ $(function () {
 
     const $skillHiddenInput = $('<input>', {
       type: 'hidden',
-      name: `skill-${skillName}`,
+      name: `skill-${skillName}`, // skill-HTML
       value: skillName,
     });
 
     // add input to li
     $skillLi.append($skillHiddenInput);
 
-    //add delete button
+    // add delete button
     $('<button>', {
       type: 'button',
       text: '-',
       class: 'deleteSkillButton',
     }).appendTo($skillLi);
 
-    //add edit button
+    // add edit button
     $('<button>', {
       type: 'button',
       text: 'Edit',
       class: 'editSkillButton',
     }).appendTo($skillLi);
 
-    //add save button
+    // add save button
     $('<button>', {
       type: 'button',
       text: 'save',
@@ -143,7 +171,7 @@ $(function () {
       .hide()
       .appendTo($skillLi);
 
-    //add cancel button
+    // add cancel button
     $('<button>', {
       type: 'button',
       text: 'Cancel',
@@ -152,11 +180,89 @@ $(function () {
       .hide()
       .appendTo($skillLi);
 
-    // the real DOM
+    // the real DOM operation
     $skillsUl.append($skillLi);
 
     // empty original element
     $skillInput.val('');
+  });
+
+  $('#hasPets').on('click', function () {
+    const $checkBox = $(this);
+    const isChecked = $checkBox.prop('checked');
+    const $targetFieldset = $checkBox.parent().next();
+
+    if (isChecked === true) {
+      // open pet fieldset
+      $targetFieldset.fadeIn();
+    } else {
+      // close pet fieldset
+      $targetFieldset.fadeOut();
+    }
+  });
+
+  // bad V - internationalizare
+  const $addPetButton = $('button[title="Add pet"]');
+  $addPetButton.on('click', function () {
+    const $addPetButton = $(this);
+    const $petInputs = $addPetButton.siblings('input[name^="pet"]');
+    const petDataArray = [];
+
+    $petInputs.each(function () {
+      const $petInput = $(this);
+      const value = $petInput.val();
+
+      // early return
+      if (value.length <= 0) {
+        return;
+      }
+
+      petDataArray.push(value);
+    });
+
+    if (petDataArray.length < 3) {
+      return;
+    }
+
+    const petData = petDataArray.join('|');
+
+    let $petUl = $('.petUl');
+
+    if ($petUl.length <= 0) {
+      $petUl = $('<ul>', {
+        class: 'petUl',
+      });
+      // add to dom
+      $petUl.insertAfter($addPetButton);
+
+      $petUl.on('click', '.deletePetButton', function () {
+        $(this).parent().remove();
+      });
+    }
+
+    $petLi = $('<li>');
+    $('<span>', {
+      class: 'petDataDisplay',
+      text: petData.replaceAll('|', ' '),
+    }).appendTo($petLi);
+
+    $('<input>', {
+      class: 'petData',
+      value: petData,
+      type: 'hidden',
+      name: `pet-${petData}`,
+    }).appendTo($petLi);
+
+    $('<button>', {
+      class: 'deletePetButton',
+      type: 'button',
+      text: 'Delete pet',
+    }).appendTo($petLi);
+
+    // add $petLi to ul
+    $petUl.append($petLi);
+
+    $petInputs.val('');
   });
 
   // hoisting
@@ -173,12 +279,23 @@ $(function () {
       text: `Varsta: ${person.age}`,
     }).appendTo($personContainer);
 
-    let $skillsUl;
     if (person.skills.length > 0) {
-      $skillsUl = renderSkillsUl(person.skills);
+      const $skillsUl = renderSkillsUl(person.skills);
+
+      $personContainer.append($skillsUl);
     }
 
-    $personContainer.append($skillsUl);
+    if (person.pets.length > 0) {
+      const $petsUl = renderPetsUl(person.pets);
+
+      $personContainer
+        .append(
+          $('<h2>', {
+            text: 'Pets',
+          }),
+        )
+        .append($petsUl);
+    }
 
     return $personContainer;
   }
@@ -195,10 +312,24 @@ $(function () {
     return $skillsUl;
   }
 
-  function resetForm($form) {
-    const $nameInputs = $form.find('[name]');
+  function renderPetsUl(petsArray) {
+    const $petsUl = $('<ul>');
 
-    $nameInputs.each(function () {
+    for (let i = 0; i < petsArray.length; i++) {
+      const { petName, petAge, petSpecies } = petsArray[i];
+
+      $('<li>', {
+        text: `${petName}: ${petAge}: ${petSpecies}`,
+      }).appendTo($petsUl);
+    }
+
+    return $petsUl;
+  }
+
+  function resetForm($form) {
+    const $namedInputs = $form.find('[name]');
+
+    $namedInputs.each(function () {
       // in function functions, this = the DOM element
       const $input = $(this);
 
