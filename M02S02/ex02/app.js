@@ -13,6 +13,7 @@ $(function () {
       skills: [],
       hasPets: false,
       pets: [],
+      friends: [],
     };
 
     for (const fieldData of formData.entries()) {
@@ -39,6 +40,18 @@ $(function () {
           petName,
           petSpecies,
           petAge: Number(petAge),
+        });
+
+        continue;
+      }
+
+      if (fieldName.startsWith('friend-')) {
+        const [friendName, friendSurname, friendAge] = fieldValue.split('|');
+
+        person.friends.push({
+          friendName,
+          friendSurname,
+          friendAge: Number(friendAge),
         });
 
         continue;
@@ -265,6 +278,69 @@ $(function () {
     $petInputs.val('');
   });
 
+  const $addFriendButton = $('button[title="Add friend"]');
+  $addFriendButton.on('click', function () {
+    const $addFriendButton = $(this);
+    const $friendInputs = $addFriendButton.siblings('input[name^="friend"]');
+    const friendDataArray = [];
+
+    $friendInputs.each(function () {
+      const $friendInput = $(this);
+      const value = $friendInput.val();
+
+      if (value.length <= 0) {
+        return;
+      }
+
+      friendDataArray.push(value);
+    });
+
+    if (friendDataArray.length < 3) {
+      return;
+    }
+
+    const friendData = friendDataArray.join('|');
+
+    let $friendUl = $('.friendUl');
+
+    if ($friendUl.length <= 0) {
+      $friendUl = $('<ul>', {
+        class: 'friendUl',
+      });
+
+      // add to DOM
+      $friendUl.insertAfter($addFriendButton);
+
+      $friendUl.on('click', '.deleteFriendButton', function () {
+        $(this).parent().remove();
+      });
+    }
+
+    $friendLi = $('<li>');
+    $('<span>', {
+      class: 'friendDataDisplay',
+      text: friendData.replaceAll('|', ' '),
+    }).appendTo($friendLi);
+
+    $('<input>', {
+      class: 'friendData',
+      value: friendData,
+      type: 'hidden',
+      name: `friend-${friendData}`,
+    }).appendTo($friendLi);
+
+    $('<button>', {
+      class: 'deleteFriendButton',
+      type: 'button',
+      text: 'Delete friend',
+    }).appendTo($friendLi);
+
+    // add $friendLi to $friendUl
+    $friendUl.append($friendLi);
+
+    $friendInputs.val('');
+  });
+
   // hoisting
   function renderPerson(person) {
     const $personContainer = $('<article>', {
@@ -297,6 +373,18 @@ $(function () {
         .append($petsUl);
     }
 
+    if (person.friends.length > 0) {
+      const $friendUl = renderFriendUl(person.friends);
+
+      $personContainer
+        .append(
+          $('<h2>', {
+            text: 'Friends',
+          }),
+        )
+        .append($friendUl);
+    }
+
     return $personContainer;
   }
 
@@ -324,6 +412,20 @@ $(function () {
     }
 
     return $petsUl;
+  }
+
+  function renderFriendUl(friendArray) {
+    const $friendsUl = $('<ul>');
+
+    for (let i = 0; i < friendArray.length; i++) {
+      const { friendName, friendSurname, friendAge } = friendArray[i];
+
+      $('<li>', {
+        text: `${friendName} ${friendSurname} ${friendAge}`,
+      }).appendTo($friendsUl);
+    }
+
+    return $friendsUl;
   }
 
   function resetForm($form) {
