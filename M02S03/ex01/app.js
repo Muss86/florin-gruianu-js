@@ -74,8 +74,7 @@ console.warn(
   `,
 );
 
-audi.setSpeed(4);
-audi.accelerate();
+audi.setSpeed(4).accelerate();
 
 const setAudiSpeed = document.createElement('p');
 setAudiSpeed.textContent = `${audi.make} o sa seteze viteza la 4 si o sa accelereze la 5`;
