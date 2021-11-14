@@ -20,6 +20,8 @@ class Car {
 
   setSpeed(speed) {
     this.speed = speed;
+
+    return this;
   }
 }
 
