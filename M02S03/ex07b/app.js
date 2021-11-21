@@ -1,20 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.btn');
+  const mediaQueryList = matchMedia('(min-width: 650px)');
 
   const clickHandler = () => {
     alert('Butonul a fost apasat.');
   };
 
   const toggleEvents = () => {
-    if (window.innerWidth > 650) {
+    if (mediaQueryList.matches) {
       button.addEventListener('click', clickHandler);
     } else {
       button.removeEventListener('click', clickHandler);
     }
   };
 
-  button.addEventListener('click', toggleEvents);
-});
+  mediaQueryList.addEventListener('change', () => {
+    toggleEvents();
+  });
 
-// nu stiu daca am facut corect DOMContentLoaded
-// nu stiu cum sa il pun in functiune in acest exercitiu
+  toggleEvents();
+});
