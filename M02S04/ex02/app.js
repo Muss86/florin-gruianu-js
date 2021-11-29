@@ -1,9 +1,11 @@
 const boxControls = document.querySelector('.box-controls');
-const box = document.querySelector('.box');
+const boxAll = document.querySelectorAll('.box');
 const colorInput = document.getElementById('dynamicColor');
 
 boxControls.addEventListener('click', (event) => {
   const targetElement = event.target;
+  const boxChecked = document.querySelector('input[name="radioGroup"]:checked');
+  const boxMain = document.querySelector(`label[for=${boxChecked.id}]`);
 
   if (
     targetElement.nodeName !== 'BUTTON' ||
@@ -12,11 +14,11 @@ boxControls.addEventListener('click', (event) => {
     return;
   }
 
-  // needles step(pas extra)
+  // needless step:
   const button = targetElement;
   const color = button.style.backgroundColor;
 
-  box.style.backgroundColor = color;
+  boxMain.style.backgroundColor = color;
 });
 
 boxControls.addEventListener('click', (event) => {
@@ -27,12 +29,14 @@ boxControls.addEventListener('click', (event) => {
   }
 
   const button = targetElement;
-  box.removeAttribute('style');
+  boxAll.forEach((box) => {
+    box.removeAttribute('style');
+  });
 });
 
 // add change for text input
 colorInput.addEventListener('change', (event) => {
-  // currentTarget = colorInput
+  // currenttarget = colorInput
   const input = event.currentTarget;
   const button = input.nextElementSibling;
 

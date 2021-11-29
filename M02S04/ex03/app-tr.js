@@ -16,7 +16,7 @@ const stage = {
 
 // set initial game state
 const gameState = {
-  left: 500,
+  left: 0,
   top: 0,
 };
 
@@ -24,11 +24,19 @@ const increments = 15;
 const speed = {
   forward: increments,
   back: -increments,
+  up: -increments,
+  down: increments,
+  // NW: -increments,
 };
 const orthogonal = {
   x: 'left',
+  y: 'top',
+  // z: 'leftTop',
   ArrowLeft: 'left',
   ArrowRight: 'left',
+  ArrowUp: 'top',
+  ArrowDown: 'top',
+  // ArrowNW: 'leftTop',
 };
 
 character.element.style.cssText = generateCssText(gameState);
@@ -55,6 +63,8 @@ document.body.addEventListener('keydown', (event) => {
   const directionOptions = {
     ArrowRight: 'forward',
     ArrowLeft: 'back',
+    ArrowUp: 'up',
+    ArrowDown: 'down',
   };
   const direction = directionOptions[key];
 
@@ -68,8 +78,8 @@ function moveCharacter(axis, direction) {
   const positionProperty = orthogonal[axis]; // x sau y
   const coeficient = speed[direction];
 
-  // gameState[positionProperty] += coeficient;
-  gameState[positionProperty] = gameState[positionProperty] + coeficient;
+  gameState[positionProperty] += coeficient;
+  // gameState[positionProperty] = gameState[positionProperty] + coeficient;
 
   preventOutOfBoundsBehavior(gameState);
 
@@ -78,17 +88,25 @@ function moveCharacter(axis, direction) {
 
 function generateCssText(gameState) {
   // return `top: ${gameState.top}px; left: ${gameState.left}px`;
-  return `transform: translateX(${gameState.left}px) `; //translateY()
+  return `transform: translateX(${gameState.left}px) translateY(${gameState.top}px) `;
 }
 
 function preventOutOfBoundsBehavior(gameState) {
-  // prevent negative x axis
+  // prevent negative x, y axis
   if (gameState.left <= 0) {
     gameState.left = 0;
   }
 
-  // prevent positive x axis out of bounds
+  if (gameState.top <= 0) {
+    gameState.top = 0;
+  }
+
+  // prevent positive x, y axis out of bounds
   if (gameState.left + character.width >= stage.width) {
     gameState.left = stage.width - character.width;
+  }
+
+  if (gameState.top + character.height >= stage.height) {
+    gameState.top = stage.height - character.height;
   }
 }

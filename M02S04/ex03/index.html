@@ -44,7 +44,7 @@
       position: absolute;
       transform: translateZ(0);
       will-change: transform;
-      transition: left .3s linear, transform .3s linear;
+      transition: left .3s linear, top .3s linear, transform .3s linear;
       /* transition: left .3s linear; */
       /* top: 0;
       left: 0; */
@@ -60,7 +60,18 @@
 
   <div class="controls">
     <div class="row">
-      <button>⬆️</button>
+      <!-- <button
+        data-axis="z"
+        data-direction="NW"
+      >↖</button> -->
+      <button
+        data-axis="y"
+        data-direction="up"
+      >⬆️</button>
+      <!-- <button
+        data-axis="z"
+        data-direction="NE"
+      >↗</button> -->
     </div>
     <div class="row">
       <button
@@ -73,7 +84,18 @@
       >➡️</button>
     </div>
     <div class="row">
-      <button>⬇️</button>
+      <!-- <button
+        data-axis="z"
+        data-direction="SW"
+      >↙</button> -->
+      <button
+        data-axis="y"
+        data-direction="down"
+      >⬇️</button>
+      <!-- <button
+        data-axis="z"
+        data-direction="SE"
+      >↘</button> -->
     </div>
   </div>
 
