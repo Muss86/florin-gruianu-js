@@ -5,7 +5,7 @@ const colorInput = document.getElementById('dynamicColor');
 boxControls.addEventListener('click', (event) => {
   const targetElement = event.target;
   const boxChecked = document.querySelector('input[name="radioGroup"]:checked');
-  const boxMain = document.querySelector(`label[for=${boxChecked.id}]`);
+  const boxMain = boxChecked.parentElement;
 
   if (
     targetElement.nodeName !== 'BUTTON' ||
