@@ -26,17 +26,15 @@ const speed = {
   back: -increments,
   up: -increments,
   down: increments,
-  // NW: -increments,
 };
+
 const orthogonal = {
   x: 'left',
   y: 'top',
-  // z: 'leftTop',
   ArrowLeft: 'left',
   ArrowRight: 'left',
   ArrowUp: 'top',
   ArrowDown: 'top',
-  // ArrowNW: 'leftTop',
 };
 
 character.element.style.cssText = generateCssText(gameState);
@@ -53,6 +51,26 @@ controls.addEventListener('click', (event) => {
   // const axis = button.dataset.axis;
   // const direction = button.dataset.direction;
   const { axis, direction } = button.dataset;
+
+  if (axis === 'xy' && direction === 'NW') {
+    gameState.left -= increments;
+    gameState.top -= increments;
+  }
+
+  if (axis === 'xy' && direction === 'SE') {
+    gameState.left += increments;
+    gameState.top += increments;
+  }
+
+  if (axis === 'yx' && direction === 'NE') {
+    gameState.left += increments;
+    gameState.top -= increments;
+  }
+
+  if (axis === 'yx' && direction === 'SW') {
+    gameState.left -= increments;
+    gameState.top += increments;
+  }
 
   moveCharacter(axis, direction);
 });

@@ -4,7 +4,7 @@ console.log(arguments);
 if (arguments.length !== 1) {
   console.warn('Ne trebuie un singur parametru. Raza cercului.');
 
-process.exit(0);
+  process.exit(0);
 }
 
 const [value] = arguments;
