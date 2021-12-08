@@ -22,3 +22,15 @@ let person = {
     },
   ],
 };
+
+console.warn(
+  `Folosind destructurarea salveaza al doilea skill din arrayul skill si afiseaza intr-un paragraf propozitia: “Vreau sa invat javascript”.`,
+);
+// de bagat completarea
+
+console.warn(
+  `Destructureaza arrayul friends si obiectul de pe pozitia 1 pentru a putea afisa propozitia:
+  “Ma numesc Steven Stevenson si am 31 de ani.”.`,
+);
+const [, { name, surname, age }] = person.friends;
+console.log(`Ma numesc ${name} ${surname} si am ${age} de ani.`);
