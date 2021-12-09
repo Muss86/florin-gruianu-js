@@ -39,3 +39,23 @@ const [, { name: friend2Name, surname: friend2Surname, age: friend2Age }] =
 console.log(
   `Ma numesc ${friend2Name} ${friend2Surname} si am ${friend2Age} ani.`,
 );
+
+console.warn(
+  `Destructureaza obiectul person pentru a obtine o variabila hasPet si in functie de aceasta afiseaza propozitia: “Persoana are/nu are animale”`,
+);
+const { petOwner: hasPet } = person;
+console.log(`Persoana ${hasPet ? 'are' : 'nu are'} animale.`);
+
+console.warn(
+  `Destructureaza arrayul friends si obiectele de pe pozitia 0 si 2, astfel incat sa poti afisa propozitiile:
+  “Prietenul meu este Larry Larryson”
+  “Carol Carolson este prietena mea”.`,
+);
+
+const [
+  { name: friendName1, surname: friendSurname1 },
+  ,
+  { name: friendName2, surname: friendSurname2 },
+] = person.friends;
+console.log(`Prietenul meu este ${friendName1} ${friendSurname1}.`);
+console.log(`${friendName2} ${friendSurname2} este prietena mea.`);
