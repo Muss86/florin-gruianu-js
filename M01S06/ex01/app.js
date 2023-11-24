@@ -76,3 +76,10 @@ console.warn(
 //   console.log(car.speed);
 // };
 // console.log(autoDecelerate());
+const numberOdd = () => {
+  numOdd = [];
+  for (i = 50; i <=100, i++) {
+    numOdd.append(i);
+  }
+  console.log(numOdd)
+}

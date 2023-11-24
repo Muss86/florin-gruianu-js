@@ -11,7 +11,7 @@ const day = data.getDate();
 const month = data.getMonth();
 const year = data.getFullYear();
 writeFileSync(
-  './output2.txt',
+  './output3.txt',
   `${message}, azi, ${day}.${month}.${year}!`,
   'utf8',
 );

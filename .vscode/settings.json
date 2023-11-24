@@ -33,5 +33,6 @@
   },
   "editor.detectIndentation": false,
   "liveServer.settings.ignoreFiles": ["server/api/persons/models/*.data"],
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "liveServer.settings.port": 5501
 }

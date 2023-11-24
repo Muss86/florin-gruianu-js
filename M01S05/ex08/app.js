@@ -6,7 +6,7 @@ const messageParagraph = document.getElementById('message');
 const clickHandler = () => {
   alert('Ai apasat butonul');
 };
-button.addEventListener('click', clickHandler());
+button.addEventListener('click', clickHandler);
 
 console.warn(
   `Adauga un buton pe care scrie Elimina Evenimentul.
